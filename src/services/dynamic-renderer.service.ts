@@ -4,7 +4,7 @@ import {
   Type,
   ComponentRef,
 } from '@angular/core';
-import { DynamicComponent } from 'src/interface/dynamic-component.interface';
+import { DynamicComponent } from '../interface/dynamic-component.interface';
 
 @Injectable({
   providedIn: 'root',
