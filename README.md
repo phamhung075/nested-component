@@ -1,59 +1,191 @@
-# NestedComponent
+# Dynamic Nested Component System
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.7.
+A flexible and reusable Angular component system that enables dynamic component loading with nested select controls and checkbox inputs. This system features real-time JSON output of selected values and checkbox states.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- Dynamic component loading system
+- Nested search results with configurable options
+- Interactive checkboxes with state management
+- Dynamic select controls with customizable options
+- Real-time JSON output of all selections
+- Conditional display based on checkbox states
 
+## Installation
+
+1. Clone the repository:
+```bash
+git clone [repository-url]
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Component Structure
 
-## Code scaffolding
+The system consists of several key components:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### NestedComponent
+The main container component that manages the overall structure and data flow.
 
-```bash
-ng generate component component-name
+### SearchBarComponent
+Handles the display and interaction of search results, including checkboxes and select controls.
+
+### SelectComponent
+A reusable select control component that can be dynamically loaded.
+
+### DynamicLoaderDirective
+Enables dynamic component loading throughout the application.
+
+## Usage
+
+### Basic Setup
+
+1. Import required modules in your app.module.ts:
+```typescript
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { NestedComponent } from './components/nested.component';
+import { SearchBarComponent } from './components/search-bar.component';
+import { SelectComponent } from './components/select-example.component';
+import { DynamicLoaderDirective } from './directive/dynamic-loader.directive';
+
+@NgModule({
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    // ... other imports
+  ],
+  declarations: [
+    DynamicLoaderDirective
+  ]
+})
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
+2. Add the component to your template:
+```html
+<component-nested></component-nested>
 ```
 
-## Building
+### Configuring Search Results
 
-To build the project run:
+To configure search results, modify the prepareSearchResults method in nested.component.ts:
 
-```bash
-ng build
+```typescript
+private async prepareSearchResults() {
+  this.searchResults = [
+    {
+      label: 'Your Item',
+      linkUrl: '/your-url',
+      icon: 'your-icon-class',
+      description: 'Your description',
+      value: 'unique-value',
+      checkboxLabel: 'Checkbox Label',
+      checkboxName: 'checkbox-name',
+      isChecked: false,
+      cardAdditionalData: {
+        cardHeader: {
+          title: 'Card Title',
+          description: 'Card Description',
+        },
+        cardColumns: [
+          {
+            title: 'Dynamic Select',
+            description: '',
+            selectOptions: [
+              { label: 'Option 1', value: 'value1' },
+              { label: 'Option 2', value: 'value2' }
+            ]
+          },
+          {
+            title: 'Additional Info',
+            description: 'Extra information'
+          }
+        ]
+      }
+    }
+  ];
+}
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Data Structure
 
-## Running unit tests
+Each search result item follows this structure:
+```typescript
+interface SearchContent {
+  label: string;
+  linkUrl: string;
+  icon: string;
+  description: string;
+  value: string;
+  checkboxLabel: string;
+  checkboxName: string;
+  isChecked: boolean;
+  cardAdditionalData: {
+    cardHeader: {
+      title: string;
+      description: string;
+    };
+    cardColumns: Array<{
+      title: string;
+      description: string;
+      selectOptions?: Array<{
+        label: string;
+        value: any;
+      }>;
+    }>;
+  };
+}
+```
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### Accessing Selected Values
 
+The component automatically generates JSON output of selected values. The output includes:
+- Checkbox states for checked items
+- Select control values for items with checked checkboxes
+- Combined data structure showing the relationship between selections
+
+## Styling
+
+The component uses SCSS for styling. You can customize the appearance by modifying the styles in:
+- search-bar.component.ts
+- select-example.component.ts
+
+Key style classes include:
+- `.search-container`: Main container styling
+- `.search-result`: Individual result item styling
+- `.card`: Card container styling
+- `.json-display`: JSON output display styling
+
+## Development
+
+### Running Tests
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
+### Building for Production
 ```bash
-ng e2e
+ng build --prod
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Notes
 
-## Additional Resources
+- The checkbox state controls the visibility of associated select controls and data
+- JSON output is only generated for items with checked checkboxes
+- Each select control maintains its own state independently
+- The system uses Angular's change detection for real-time updates
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a new Pull Request
