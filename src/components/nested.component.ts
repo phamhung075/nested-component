@@ -118,7 +118,7 @@ export class NestedComponent implements OnInit, AfterViewInit {
           value: 'project-dash',
           checkboxLabel: 'Enable notifications',
           checkboxName: 'project-notifications',
-          isChecked: true,
+          isChecked: false,
           cardAdditionalData: {
             cardHeader: {
               title: 'Project Settings',
@@ -182,7 +182,7 @@ export class NestedComponent implements OnInit, AfterViewInit {
           value: 'user-mgmt',
           checkboxLabel: 'Enable audit logging',
           checkboxName: 'audit-log',
-          isChecked: true,
+          isChecked: false,
           cardAdditionalData: {
             cardHeader: {
               title: 'User Access Controls',
@@ -246,7 +246,7 @@ export class NestedComponent implements OnInit, AfterViewInit {
           value: 'doc-mgmt',
           checkboxLabel: 'Enable version control',
           checkboxName: 'version-control',
-          isChecked: true,
+          isChecked: false,
           cardAdditionalData: {
             cardHeader: {
               title: 'Document Controls',
