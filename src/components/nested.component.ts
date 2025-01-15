@@ -58,7 +58,7 @@ export class NestedComponent implements OnInit, AfterViewInit {
   });
   searchResults: SearchContent[] = [];
 
-  private etapeContents: NestedContent[] = [
+  private nestedContent: NestedContent[] = [
     {
       component: SelectComponent,
       input: [
@@ -286,7 +286,7 @@ export class NestedComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    const content = this.etapeContents[index];
+    const content = this.nestedContent[index];
     if (!content?.component) {
       console.error('No component found for index:', index);
       return;
